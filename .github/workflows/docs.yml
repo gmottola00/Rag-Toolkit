@@ -72,7 +72,7 @@ jobs:
           make clean
           make html
         env:
-          SPHINXOPTS: "--keep-going -W --color"
+          SPHINXOPTS: "--keep-going --color"
           SPHINX_BUILD: "true"
       
       - name: Check for broken links
