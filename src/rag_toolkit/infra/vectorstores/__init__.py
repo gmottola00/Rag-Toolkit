@@ -7,9 +7,11 @@ and factory functions for creating configured instances.
 from rag_toolkit.infra.vectorstores.factory import (
     create_index_service,
     create_milvus_service,
+    create_qdrant_service,
 )
 
 __all__ = [
     "create_milvus_service",
+    "create_qdrant_service",
     "create_index_service",
 ]

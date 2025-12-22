@@ -13,6 +13,8 @@ from rag_toolkit.core.embedding import EmbeddingClient
 from rag_toolkit.core.index.service import IndexService
 from rag_toolkit.infra.vectorstores.milvus.config import MilvusConfig
 from rag_toolkit.infra.vectorstores.milvus.service import MilvusService
+from rag_toolkit.infra.vectorstores.qdrant.config import QdrantConfig
+from rag_toolkit.infra.vectorstores.qdrant.service import QdrantService
 
 
 def create_milvus_service(
@@ -117,7 +119,63 @@ def create_index_service(
     )
 
 
+def create_qdrant_service(
+    *,
+    url: Optional[str] = None,
+    api_key: Optional[str] = None,
+    timeout: Optional[float] = None,
+    https: bool = False,
+    grpc_port: Optional[int] = None,
+    prefer_grpc: bool = False,
+) -> QdrantService:
+    """Create a configured QdrantService instance.
+    
+    Args:
+        url: Qdrant server URL (defaults to QDRANT_URL env var or http://localhost:6333).
+        api_key: API key for authentication (defaults to QDRANT_API_KEY env var).
+        timeout: Request timeout in seconds.
+        https: Use HTTPS for connection.
+        grpc_port: gRPC port for high-performance operations.
+        prefer_grpc: Prefer gRPC over HTTP when available.
+        
+    Returns:
+        Configured QdrantService instance.
+        
+    Example:
+        ```python
+        from rag_toolkit.infra.vectorstores.factory import create_qdrant_service
+        
+        # Use environment variables
+        service = create_qdrant_service()
+        
+        # Override specific settings
+        service = create_qdrant_service(
+            url="http://localhost:6333",
+            prefer_grpc=True
+        )
+        
+        # Cloud instance
+        service = create_qdrant_service(
+            url="https://xyz-example.eu-central.aws.cloud.qdrant.io:6333",
+            api_key="your-api-key",
+            https=True
+        )
+        ```
+    """
+    config = QdrantConfig(
+        url=url or os.getenv("QDRANT_URL", "http://localhost:6333"),
+        api_key=api_key or os.getenv("QDRANT_API_KEY"),
+        timeout=timeout,
+        https=https,
+        grpc_port=grpc_port,
+        prefer_grpc=prefer_grpc,
+    )
+    
+    return QdrantService(config)
+
+
 __all__ = [
     "create_milvus_service",
+    "create_qdrant_service",
     "create_index_service",
 ]
