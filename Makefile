@@ -23,6 +23,21 @@ test: ## Run tests
 test-cov: ## Run tests with coverage
 	uv run pytest --cov=rag_toolkit --cov-report=html --cov-report=term
 
+test-unified: ## Run unified vector store tests
+	uv run pytest tests/test_infra/test_vectorstores/test_unified.py -v
+
+test-vectorstores: ## Run all vector store tests
+	uv run pytest tests/test_infra/test_vectorstores/ -v
+
+test-milvus: ## Run Milvus tests only
+	uv run pytest tests/test_infra/test_vectorstores/ -k milvus -v
+
+test-qdrant: ## Run Qdrant tests only
+	uv run pytest tests/test_infra/test_vectorstores/ -k qdrant -v
+
+test-chroma: ## Run ChromaDB tests only
+	uv run pytest tests/test_infra/test_vectorstores/ -k chroma -v
+
 lint: ## Run linting (ruff)
 	uv run ruff check src/rag_toolkit tests
 

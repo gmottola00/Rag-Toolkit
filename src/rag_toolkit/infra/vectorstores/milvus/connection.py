@@ -51,6 +51,15 @@ class MilvusConnectionManager:
         """Return the logical alias (kept for backward compatibility)."""
         return self.config.alias
 
+    def health_check(self) -> bool:
+        """Check if Milvus connection is healthy."""
+        try:
+            # Try to list collections - if it works, connection is healthy
+            self.client.list_collections()
+            return True
+        except Exception:
+            return False
+
 
 class MilvusClientFactory:
     """Factory + singleton helper to build MilvusClient instances from config."""

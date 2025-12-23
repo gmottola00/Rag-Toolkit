@@ -149,7 +149,6 @@ class QdrantCollectionManager:
             info = self.connection.client.get_collection(collection_name)
             return {
                 "name": collection_name,
-                "vectors_count": info.vectors_count,
                 "points_count": info.points_count,
                 "status": info.status,
                 "config": info.config,

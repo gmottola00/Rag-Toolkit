@@ -103,14 +103,17 @@ class QdrantDataManager:
             if query_filter:
                 qdrant_filter = self._build_filter(query_filter)
 
-            results = self.connection.client.search(
+            # Use query() instead of search() in newer qdrant-client versions
+            results = self.connection.client.query_points(
                 collection_name=collection_name,
-                query_vector=list(query_vector),
+                query=list(query_vector),
                 limit=limit,
                 query_filter=qdrant_filter,
                 score_threshold=score_threshold,
+                with_payload=True,
+                with_vectors=True,
                 **kwargs,
-            )
+            ).points
 
             return [
                 {

@@ -9,6 +9,33 @@ import pytest
 
 
 # ============================================================================
+# Pytest Configuration - Register Custom Markers
+# ============================================================================
+
+
+def pytest_configure(config):
+    """Register custom markers."""
+    config.addinivalue_line(
+        "markers", "vectorstore: mark test as vector store test"
+    )
+    config.addinivalue_line(
+        "markers", "milvus: mark test as Milvus-specific test"
+    )
+    config.addinivalue_line(
+        "markers", "qdrant: mark test as Qdrant-specific test"
+    )
+    config.addinivalue_line(
+        "markers", "chroma: mark test as ChromaDB-specific test"
+    )
+    config.addinivalue_line(
+        "markers", "unified: mark test as unified cross-vectorstore test"
+    )
+    config.addinivalue_line(
+        "markers", "integration: mark test as integration test (requires Docker)"
+    )
+
+
+# ============================================================================
 # Concrete Implementations for Testing (Protocols need concrete classes)
 # ============================================================================
 
