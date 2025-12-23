@@ -45,11 +45,13 @@ Services:
     all                 All services (default)
     milvus              Milvus only
     qdrant              Qdrant only
+    chroma              ChromaDB only
 
 Examples:
     $0 up                    # Start all services
     $0 up milvus             # Start only Milvus
     $0 logs qdrant           # View Qdrant logs
+    $0 up chroma             # Start only ChromaDB
     $0 down                  # Stop all services
     $0 clean all             # Remove all data (careful!)
     $0 health                # Check service health
@@ -81,7 +83,7 @@ cmd_up() {
     check_docker
     
     if [ ! -f "$compose_file" ]; then
-        print_error "Service '$service' not found. Available: all, milvus, qdrant"
+        print_error "Service '$service' not found. Available: all, milvus, qdrant, chroma"
         exit 1
     fi
     
@@ -204,6 +206,15 @@ cmd_health() {
             print_success "Milvus is healthy (http://localhost:19530)"
         else
             print_error "Milvus is not responding"
+        fi
+    fi
+    
+    # Check ChromaDB
+    if [ "$service" = "all" ] || [ "$service" = "chroma" ]; then
+        if curl -sf http://localhost:8000/api/v1/heartbeat > /dev/null 2>&1; then
+            print_success "ChromaDB is healthy (http://localhost:8000)"
+        else
+            print_error "ChromaDB is not responding"
         fi
     fi
 }

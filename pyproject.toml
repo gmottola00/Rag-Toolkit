@@ -3,7 +3,7 @@ name = "rag-toolkit"
 version = "0.1.0"
 description = "Advanced RAG toolkit with multi-vectorstore support and production-ready components"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 license = { text = "MIT" }
 authors = [
     { name = "Gianmarco Mottola", email = "gianmarcomottola00@gmail.com" }
@@ -29,6 +29,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Vector databases
+qdrant = ["qdrant-client>=1.7.0"]
+chroma = ["chromadb>=0.4.0"]
+
 # LLM providers
 ollama = ["ollama>=0.1.0"]
 openai = ["openai>=1.0.0,<2.0.0"]
@@ -64,7 +68,7 @@ docs = [
 
 # All optional dependencies
 all = [
-    "rag-toolkit[ollama,openai,pdf,docx,ocr,lang]",
+    "rag-toolkit[qdrant,chroma,ollama,openai,pdf,docx,ocr,lang]",
 ]
 
 [project.urls]
@@ -137,6 +141,8 @@ strict_equality = true
 [[tool.mypy.overrides]]
 module = [
     "pymilvus.*",
+    "qdrant_client.*",
+    "chromadb.*",
     "ollama.*",
     "langdetect.*",
     "fitz.*",

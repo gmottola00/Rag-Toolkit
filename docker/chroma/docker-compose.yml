@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  chromadb:
+    container_name: chromadb
+    image: ghcr.io/chroma-core/chroma:latest
+    ports:
+      - "8000:8000"  # HTTP API
+    volumes:
+      - ${DOCKER_VOLUME_DIRECTORY:-.}/volumes/chroma:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma
+      - ANONYMIZED_TELEMETRY=${ANONYMIZED_TELEMETRY:-TRUE}
+      # Optional: Enable authentication
+      # - CHROMA_SERVER_AUTH_CREDENTIALS_FILE=/chroma/auth.json
+      # - CHROMA_SERVER_AUTH_CREDENTIALS_PROVIDER=chromadb.auth.basic.BasicAuthCredentialsProvider
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+
+networks:
+  default:
+    name: chromadb

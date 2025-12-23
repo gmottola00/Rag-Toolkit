@@ -15,6 +15,8 @@ from rag_toolkit.infra.vectorstores.milvus.config import MilvusConfig
 from rag_toolkit.infra.vectorstores.milvus.service import MilvusService
 from rag_toolkit.infra.vectorstores.qdrant.config import QdrantConfig
 from rag_toolkit.infra.vectorstores.qdrant.service import QdrantService
+from rag_toolkit.infra.vectorstores.chroma.config import ChromaConfig
+from rag_toolkit.infra.vectorstores.chroma.service import ChromaService
 
 
 def create_milvus_service(
@@ -174,8 +176,68 @@ def create_qdrant_service(
     return QdrantService(config)
 
 
+def create_chroma_service(
+    *,
+    path: Optional[str] = None,
+    host: Optional[str] = None,
+    port: Optional[int] = None,
+    ssl: bool = False,
+    tenant: str = "default_tenant",
+    database: str = "default_database",
+) -> ChromaService:
+    """Create a configured ChromaService instance.
+    
+    Args:
+        path: Path for persistent storage (defaults to CHROMA_PATH env var).
+            If None and host is None, uses in-memory mode.
+        host: ChromaDB server host (defaults to CHROMA_HOST env var).
+        port: ChromaDB server port (defaults to CHROMA_PORT env var or 8000).
+        ssl: Use SSL for remote connections.
+        tenant: Tenant name for multi-tenancy.
+        database: Database name within tenant.
+        
+    Returns:
+        Configured ChromaService instance.
+        
+    Example:
+        ```python
+        from rag_toolkit.infra.vectorstores.factory import create_chroma_service
+        
+        # In-memory mode (default)
+        service = create_chroma_service()
+        
+        # Persistent mode
+        service = create_chroma_service(path="./chroma_data")
+        
+        # Remote server
+        service = create_chroma_service(
+            host="localhost",
+            port=8000
+        )
+        
+        # Cloud instance with SSL
+        service = create_chroma_service(
+            host="chroma.example.com",
+            port=443,
+            ssl=True
+        )
+        ```
+    """
+    config = ChromaConfig(
+        path=path or os.getenv("CHROMA_PATH"),
+        host=host or os.getenv("CHROMA_HOST"),
+        port=port or int(os.getenv("CHROMA_PORT", "8000")) if os.getenv("CHROMA_PORT") else None,
+        ssl=ssl,
+        tenant=tenant,
+        database=database,
+    )
+    
+    return ChromaService(config)
+
+
 __all__ = [
     "create_milvus_service",
     "create_qdrant_service",
+    "create_chroma_service",
     "create_index_service",
 ]
