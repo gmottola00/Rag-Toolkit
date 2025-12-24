@@ -18,12 +18,12 @@ The future development plan for rag-toolkit.
 
 **Vector Stores**
 - [ ] Pinecone integration
-- [ ] Qdrant integration
-- [ ] ChromaDB integration
+- [X] Qdrant integration
+- [X] ChromaDB integration
 - [ ] Weaviate integration (community contribution)
 
 **Improvements**
-- [ ] Unified vector store testing suite
+- [X] Unified vector store testing suite
 - [ ] Performance benchmarks across stores
 - [ ] Migration tools between vector stores
 - [ ] Vector store selection guide
