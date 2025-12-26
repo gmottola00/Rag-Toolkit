@@ -3,72 +3,242 @@ Benchmark Results
 
 .. raw:: html
 
-   <div style="padding: 20px; background: #f8f9fa; border-radius: 8px; margin: 20px 0;">
-       <h2 style="color: #667eea;">📊 Interactive Benchmark Report</h2>
-       <p style="font-size: 1.1em;">
-           View the complete benchmark results with interactive charts and detailed performance metrics.
+   <style>
+       .benchmark-hero {
+           background: #667eea;
+           padding: 40px;
+           border-radius: 8px;
+           margin: 30px 0;
+           text-align: center;
+       }
+       .benchmark-hero h2 {
+           color: white;
+           font-size: 2em;
+           margin: 0 0 15px 0;
+           font-weight: 600;
+       }
+       .benchmark-hero p {
+           color: rgba(255, 255, 255, 0.9);
+           font-size: 1.1em;
+           margin: 0 0 25px 0;
+       }
+       .benchmark-button {
+           display: inline-block;
+           padding: 12px 32px;
+           background: white;
+           color: #667eea;
+           text-decoration: none;
+           border-radius: 6px;
+           font-weight: 600;
+           transition: opacity 0.2s;
+       }
+       .benchmark-button:hover {
+           opacity: 0.9;
+       }
+       
+       /* Dark mode support */
+       [data-theme="dark"] .benchmark-button {
+           background: #2b2b2b;
+           color: #8b9cf6;
+       }
+       
+       .benchmark-stats {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+           gap: 15px;
+           margin: 30px 0;
+       }
+       .stat-card {
+           background: var(--color-background-secondary, #f8f9fa);
+           padding: 20px;
+           border-radius: 6px;
+           text-align: center;
+           border: 1px solid var(--color-background-border, #e0e0e0);
+       }
+       .stat-number {
+           font-size: 2.5em;
+           font-weight: 600;
+           color: #667eea;
+           margin: 0;
+       }
+       .stat-label {
+           font-size: 0.95em;
+           color: var(--color-foreground-secondary, #666);
+           margin-top: 8px;
+       }
+       .info-note {
+           background: var(--color-admonition-background, rgba(102, 126, 234, 0.1));
+           border-left: 3px solid #667eea;
+           padding: 15px 20px;
+           border-radius: 4px;
+           margin: 20px 0;
+       }
+       .info-note p {
+           color: var(--color-foreground-primary, inherit);
+       }
+       .section-simple {
+           margin: 30px 0;
+       }
+       .simple-grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+           gap: 20px;
+           margin: 20px 0;
+       }
+       .simple-card {
+           background: var(--color-background-secondary, #fafafa);
+           border: 1px solid var(--color-background-border, #e0e0e0);
+           padding: 20px;
+           border-radius: 6px;
+       }
+       .simple-card h4 {
+           margin: 0 0 12px 0;
+           color: var(--color-foreground-primary, #333);
+           font-size: 1.2em;
+       }
+       .simple-card ul {
+           margin: 0;
+           padding-left: 20px;
+           color: var(--color-foreground-secondary, #666);
+           line-height: 1.8;
+       }
+   </style>
+
+   <div class="benchmark-hero">
+       <h2>📊 Interactive Benchmark Report</h2>
+       <p>
+           Performance comparison of Milvus, Qdrant, and ChromaDB across 30 tests
        </p>
-       <div style="margin-top: 20px;">
-           <a href="_static/benchmark_report.html" 
-              style="display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 8px; font-weight: bold;"
-              onclick="window.open(this.href, '_blank', 'width=1200,height=800'); return false;">
-              🚀 Open Full Report
-           </a>
+       <a href="_static/benchmark_report.html" 
+          class="benchmark-button"
+          onclick="window.open(this.href, '_blank', 'width=1400,height=900'); return false;">
+          Open Full Report
+       </a>
+   </div>
+
+   <div class="benchmark-stats">
+       <div class="stat-card">
+           <div class="stat-number">30</div>
+           <div class="stat-label">Total Tests</div>
        </div>
-       <p style="margin-top: 15px; color: #666; font-size: 0.9em;">
-           <strong>Note:</strong> The report opens in a new window. If it doesn't open automatically, 
-           navigate to <code>docs/_build/html/_static/benchmark_report.html</code> and open it directly.
+       <div class="stat-card">
+           <div class="stat-number">4</div>
+           <div class="stat-label">Categories</div>
+       </div>
+       <div class="stat-card">
+           <div class="stat-number">3</div>
+           <div class="stat-label">Vector Stores</div>
+       </div>
+       <div class="stat-card">
+           <div class="stat-number">10K</div>
+           <div class="stat-label">Max Vectors</div>
+       </div>
+   </div>
+
+   <div class="info-note">
+       <p style="margin: 0;">
+           <strong>Note:</strong> The report opens in a new window. 
+           If needed, navigate to <code>docs/_build/html/_static/benchmark_report.html</code> and open it directly.
        </p>
    </div>
 
-Quick Summary
--------------
+Test Categories
+---------------
 
-The benchmark suite tests 30 different scenarios across 4 categories:
+.. raw:: html
 
-- **Insert Operations** (9 tests): Single and batch insert performance
-- **Search Operations** (9 tests): Top-k search with varying k values  
-- **Batch Operations** (6 tests): Combined operations and cycles
-- **Scale Tests** (6 tests): Large-scale operations with 10K vectors
+   <div class="simple-grid">
+       <div class="simple-card">
+           <h4>📥 Insert Operations (9 tests)</h4>
+           <ul>
+               <li>Single vector insertion</li>
+               <li>Small batch (100 vectors)</li>
+               <li>Large batch (1K vectors)</li>
+           </ul>
+       </div>
+       <div class="simple-card">
+           <h4>🔍 Search Performance (9 tests)</h4>
+           <ul>
+               <li>Top-k similarity search</li>
+               <li>High-volume queries</li>
+               <li>Different dataset sizes</li>
+           </ul>
+       </div>
+       <div class="simple-card">
+           <h4>⚡ Batch Processing (6 tests)</h4>
+           <ul>
+               <li>Combined insert cycles</li>
+               <li>Large-scale deletions</li>
+               <li>Memory efficiency</li>
+           </ul>
+       </div>
+       <div class="simple-card">
+           <h4>📈 Scalability (6 tests)</h4>
+           <ul>
+               <li>10K+ vector operations</li>
+               <li>Concurrent processing</li>
+               <li>High-volume scenarios</li>
+           </ul>
+       </div>
+   </div>
+
+Vector Stores Tested
+--------------------
+
+.. raw:: html
+
+   <div class="simple-grid">
+       <div class="simple-card">
+           <h4>🚀 Milvus</h4>
+           <ul>
+               <li>INT64 ID system</li>
+               <li>Expression-based deletion</li>
+               <li>Best for: Read-heavy workloads</li>
+           </ul>
+       </div>
+       <div class="simple-card">
+           <h4>⚡ Qdrant</h4>
+           <ul>
+               <li>UUID-based identifiers</li>
+               <li>Batch processing support</li>
+               <li>Best for: Single inserts (~1ms)</li>
+           </ul>
+       </div>
+       <div class="simple-card">
+           <h4>🎨 ChromaDB</h4>
+           <ul>
+               <li>In-memory operations</li>
+               <li>Flexible metadata</li>
+               <li>Best for: Development/testing</li>
+           </ul>
+       </div>
+   </div>
 
 How to Generate Fresh Results
 ------------------------------
 
 .. code-block:: bash
 
-   # Run benchmarks (30-40 minutes)
+   # Run complete benchmark suite (30-40 minutes)
    make benchmark
    
-   # Generate HTML report
+   # Generate interactive HTML report
    make benchmark-report
    
-   # Update documentation
+   # Update documentation with latest results
    make benchmark-docs
    
-   # Rebuild docs
+   # Rebuild Sphinx documentation
    cd docs && make html
 
-Vector Store Performance Highlights
-------------------------------------
+Performance Highlights
+----------------------
 
-Based on the latest benchmark results:
+**Qdrant** - Best for single inserts (~1ms), excellent batch performance
 
-**Qdrant**
-   - Best for single inserts (~1ms)
-   - Good batch performance
-   - Moderate search speed
+**Milvus** - Fastest search operations, ideal for read-heavy workloads
 
-**Milvus**  
-   - Slower for inserts (requires flush)
-   - Fast search operations
-   - Good for read-heavy workloads
-
-**ChromaDB**
-   - Balanced performance
-   - In-memory, fast for small datasets
-   - Good for development/testing
-
-For detailed metrics, charts, and full analysis, view the interactive report above.
+**ChromaDB** - Balanced performance, perfect for development/testing
 
 .. seealso::
 

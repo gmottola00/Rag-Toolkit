@@ -135,25 +135,12 @@ Table of Contents
    :caption: User Guide
 
    user_guide/index
-   user_guide/core_concepts
-   user_guide/protocols
-   user_guide/vector_stores
-   user_guide/embeddings
-   user_guide/llms
-   user_guide/rag_pipeline
-   user_guide/chunking
-   user_guide/reranking
 
 .. toctree::
    :maxdepth: 2
    :caption: Examples
 
    examples/index
-   examples/basic_rag
-   examples/custom_vectorstore
-   examples/hybrid_search
-   examples/advanced_pipeline
-   examples/production_setup
 
 .. toctree::
    :maxdepth: 2
