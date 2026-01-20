@@ -521,8 +521,8 @@ final = token_chunker.chunk(structural)
 ## See Also
 
 - [Core Concepts](core_concepts.md) - Chunking fundamentals
-- [Architecture](../architecture.md) - System design
-- [API Reference](../autoapi/rag_toolkit/core/chunking/index.html) - Complete API docs
+- [Architecture](../getting_started/architecture.md) - System design
+- [API Reference](../api/index.md) - Complete API docs
 
 Split text into fixed-size chunks with optional overlap.
 
@@ -1112,6 +1112,6 @@ chunker = SemanticChunker(
 
 ## See Also
 
-- [Core Concepts](core_concepts.md#chunking) - Chunking fundamentals
-- [Architecture](../architecture.md) - System design
+- [Core Concepts](core_concepts.md) - Chunking fundamentals
+- [Architecture](../getting_started/architecture.md) - System design
 - [Token Limits](https://platform.openai.com/docs/models) - Model context windows

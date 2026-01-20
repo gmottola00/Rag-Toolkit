@@ -43,19 +43,11 @@ Comprehensive benchmark suite to measure and compare RAG Toolkit performance acr
     </div>
 
 !!! info "View Latest Results"
-    
-    === "Interactive Report"
-        [:material-chart-line: Full Benchmark Report](../_static/benchmark_report.html){ .md-button .md-button--primary }
-        
-        Complete benchmark data with interactive charts
-    
-    === "Landing Page"
-        [:material-home: Benchmarks Home](../_static/benchmarks_index.html){ .md-button }
-        
-        Introduction and detailed instructions
-    
+
+    Run `make benchmark-report` to generate the interactive HTML report with complete benchmark data and charts.
+
     !!! tip "Local Viewing"
-        For local viewing, open HTML files directly from `docs/_build/html/_static/`
+        After generating, open the `benchmark_report.html` file directly in your browser.
 
 ---
 
@@ -543,7 +535,7 @@ pip list | grep -E "pytest-benchmark|milvus|qdrant|chromadb"
 2. **Use Decorator** - `@pytest.mark.benchmark(group="category")`
 3. **Follow Patterns** - Match existing test structure
 4. **Update Documentation** - Add to this guide
-5. **Submit PR** - Follow [Contributing Guide](contributing.md)
+5. **Submit PR** - Follow [Contributing Guide](../development/contributing.md)
 
 ---
 

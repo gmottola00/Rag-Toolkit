@@ -41,7 +41,6 @@
 <div class="benchmark-hero">
   <h2>🚀 Vector Store Performance Benchmarks</h2>
   <p>Real-world performance comparison across Milvus, Qdrant, and ChromaDB</p>
-  <a href="../_static/benchmark_report.html" class="md-button md-button--primary">View Interactive Report</a>
 </div>
 
 ## Summary
@@ -166,9 +165,7 @@
 
 ## Interactive Report
 
-For detailed results with charts and full statistics:
-
-[View Interactive Benchmark Report](../_static/benchmark_report.html){ .md-button .md-button--primary }
+For detailed results with charts and full statistics, generate the benchmark report locally using `make benchmark-report`.
 
 The interactive report includes:
 

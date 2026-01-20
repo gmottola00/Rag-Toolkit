@@ -700,6 +700,6 @@ for i in range(0, len(candidates), 20):
 
 ## See Also
 
-- [Core Concepts](core_concepts.md#retrieval-strategies) - Retrieval fundamentals
-- [Architecture](../architecture.md) - System design
+- [Core Concepts](core_concepts.md) - Retrieval fundamentals
+- [Architecture](../getting_started/architecture.md) - System design
 - [Cross-Encoder Models](https://www.sbert.net/docs/pretrained_cross-encoders.html)

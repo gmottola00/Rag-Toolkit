@@ -784,4 +784,4 @@ metrics_pipeline = MetricsPipeline(pipeline)
 
 - [Core Concepts](core_concepts.md) - RAG fundamentals
 - [Protocols](protocols.md) - Understand the protocol system
-- [Architecture](../architecture.md) - System design
+- [Architecture](../getting_started/architecture.md) - System design

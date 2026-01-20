@@ -720,7 +720,7 @@ class QueryRequest(BaseModel):
 
 - [Custom Vector Store](custom_vectorstore.md) - Implement custom stores
 - [Hybrid Search](hybrid_search.md) - Advanced search
-- [RAG Pipeline Guide](../user_guide/rag_pipeline.md) - Pipeline details
+- [RAG Pipeline Guide](../guides/rag_pipeline.md) - Pipeline details
 
 ## Resources
 

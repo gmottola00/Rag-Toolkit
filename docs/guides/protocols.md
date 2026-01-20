@@ -656,4 +656,4 @@ class VectorStore(Searchable, Indexable, Protocol):
 - See [Vector Stores](vector_stores.md) for implementation examples
 - Learn about [Embeddings](embeddings.md)
 - Explore [LLMs](llms.md)
-- Read [API Reference](../autoapi/index.html) for complete protocol definitions
+- Read [API Reference](../api/index.md) for complete protocol definitions

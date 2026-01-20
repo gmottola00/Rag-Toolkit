@@ -780,12 +780,12 @@ class QdrantVectorStore:
 ## Next Steps
 
 - [Hybrid Search Example](hybrid_search.md) - Advanced search techniques
-- [Vector Stores Guide](../user_guide/vector_stores.md) - Deep dive
+- [Vector Stores Guide](../guides/vector_stores.md) - Deep dive
 - [Production Setup](production_setup.md) - Deploy to production
 
 ## See Also
 
-- [VectorStoreClient Protocol](../user_guide/protocols.md#vectorstoreclient)
+- [VectorStoreClient Protocol](../guides/protocols.md#vectorstoreclient)
 - [ChromaDB Documentation](https://docs.trychroma.com/)
 - [Pinecone Documentation](https://docs.pinecone.io/)
 - [Qdrant Documentation](https://qdrant.tech/documentation/)

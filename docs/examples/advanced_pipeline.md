@@ -127,6 +127,6 @@ print(result["answer"])
 ## Next Steps
 
 - [Production Setup](production_setup.md) - Deploy to production
-- [Reranking Guide](../user_guide/reranking.md) - Improve ranking
-- [RAG Pipeline Guide](../user_guide/rag_pipeline.md) - Deep dive
+- [Reranking Guide](../guides/reranking.md) - Improve ranking
+- [RAG Pipeline Guide](../guides/rag_pipeline.md) - Deep dive
 

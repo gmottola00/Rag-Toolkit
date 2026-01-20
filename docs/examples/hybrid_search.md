@@ -848,8 +848,8 @@ print("Hybrid:", results_hybrid)
 ## Next Steps
 
 - [Advanced Pipeline](advanced_pipeline.md) - Complete RAG pipeline
-- [Reranking Guide](../user_guide/reranking.md) - Improve ranking quality
-- [Vector Stores](../user_guide/vector_stores.md) - Vector search deep dive
+- [Reranking Guide](../guides/reranking.md) - Improve ranking quality
+- [Vector Stores](../guides/vector_stores.md) - Vector search deep dive
 
 ## See Also
 

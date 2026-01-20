@@ -1198,7 +1198,7 @@ migrator = VectorStoreMigrator(
 
 ### Contributing
 
-Interested in implementing these features? See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
+Interested in implementing these features? See the [Contributing Guide](../development/contributing.md) for guidelines.
 
 Priority feature requests:
 1. Incremental migration (high demand)
@@ -1234,8 +1234,4 @@ Priority feature requests:
 
 ## API Reference
 
-For detailed API documentation, see:
-
-- [VectorStoreMigrator API](autoapi/src/rag_toolkit/migration/migrator/index.html)
-- [Migration Models API](autoapi/src/rag_toolkit/migration/models/index.html)
-- [Migration Exceptions API](autoapi/src/rag_toolkit/migration/exceptions/index.html)
+For detailed API documentation, see the [API Reference](../api/index.md).
