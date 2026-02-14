@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Sequence
 
 from rag_toolkit.core.embedding.base import EmbeddingClient
 
@@ -61,6 +61,31 @@ class OllamaEmbeddingClient(EmbeddingClient):
         if normalized is None:
             raise ValueError(f"Invalid embedding response from Ollama: keys={list(data.keys())}")
         return normalized
+
+    def embed_batch(self, texts: Sequence[str]) -> List[List[float]]:
+        """Embed multiple texts.
+
+        Note: Ollama doesn't have native batch API, so this calls
+        embed() for each text. Override in subclass if batch API exists.
+
+        Args:
+            texts: List of texts to embed
+
+        Returns:
+            List of embedding vectors (same order as input)
+
+        Example:
+            >>> client = OllamaEmbeddingClient()
+            >>> embeddings = client.embed_batch(["text1", "text2", "text3"])
+            >>> len(embeddings)
+            3
+        """
+        return [self.embed(text) for text in texts]
+
+    @property
+    def dimension(self) -> int | None:
+        """Return embedding dimension if known."""
+        return None
 
 
 def _normalize_embedding(raw: Any) -> List[float] | None:

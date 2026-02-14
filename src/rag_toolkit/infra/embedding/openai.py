@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import List
+from typing import List, Sequence
 
 from rag_toolkit.core.embedding.base import EmbeddingClient
 
@@ -45,6 +45,33 @@ class OpenAIEmbeddingClient(EmbeddingClient):
         resp = self.client.embeddings.create(model=self._model, input=[text])
         vector = resp.data[0].embedding
         return vector
+
+    def embed_batch(self, texts: Sequence[str]) -> List[List[float]]:
+        """Embed multiple texts using OpenAI batch API.
+
+        Uses OpenAI's native batch embedding endpoint for efficiency.
+
+        Args:
+            texts: List of texts to embed
+
+        Returns:
+            List of embedding vectors (same order as input)
+
+        Example:
+            >>> client = OpenAIEmbeddingClient(model="text-embedding-3-small")
+            >>> embeddings = client.embed_batch(["text1", "text2", "text3"])
+            >>> len(embeddings)
+            3
+        """
+        try:
+            response = self.client.embeddings.create(
+                model=self._model,
+                input=list(texts),
+            )
+            return [item.embedding for item in response.data]
+        except Exception:
+            # Fallback to sequential if batch fails
+            return [self.embed(text) for text in texts]
 
     @property
     def dimension(self) -> int | None:
