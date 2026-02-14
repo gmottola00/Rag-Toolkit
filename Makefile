@@ -38,6 +38,27 @@ test-qdrant: ## Run Qdrant tests only
 test-chroma: ## Run ChromaDB tests only
 	uv run pytest tests/test_infra/test_vectorstores/ -k chroma -v
 
+test-metadata: ## Run metadata extraction tests
+	uv run pytest tests/test_core/metadata/ -v
+
+test-enrichment: ## Run metadata enrichment tests
+	uv run pytest tests/test_chunking/test_enrichment.py -v
+
+test-metadata-all: ## Run all metadata and enrichment tests with coverage
+	uv run pytest tests/test_core/metadata/ tests/test_chunking/test_enrichment.py -v --cov=rag_toolkit.core.metadata --cov=rag_toolkit.core.chunking.enrichment --cov-report=term --cov-report=html
+
+test-metadata-quick: ## Quick test of metadata extraction and enrichment (no coverage)
+	uv run pytest tests/test_core/metadata/ tests/test_chunking/test_enrichment.py -v --tb=short
+
+test-graph: ## Run graph store unit tests (no Neo4j required)
+	uv run pytest tests/test_core/test_graphstore_protocol.py -v
+
+test-graph-integration: ## Run graph store integration tests (requires Neo4j)
+	uv run pytest tests/integration/test_neo4j_service.py -v
+
+test-graph-all: ## Run all graph store tests with coverage
+	uv run pytest tests/test_core/test_graphstore_protocol.py tests/integration/test_neo4j_service.py -v --cov=rag_toolkit.core.graphstore --cov=rag_toolkit.infra.graphstores --cov-report=term --cov-report=html
+
 benchmark: ## Run performance benchmarks
 	uv run pytest tests/benchmarks/ --benchmark-only --benchmark-autosave
 
@@ -69,11 +90,17 @@ typecheck: ## Run type checking (mypy)
 
 check: format-check lint typecheck test ## Run all checks
 
-docs: ## Build documentation
-	cd docs && make html
+docs: ## Build MkDocs documentation
+	uv run mkdocs build
 
-docs-serve: docs ## Build and serve documentation
-	cd docs/build/html && python -m http.server 8000
+docs-serve: ## Serve MkDocs documentation locally (http://localhost:8000)
+	uv run mkdocs serve
+
+docs-build-strict: ## Build documentation in strict mode (fails on warnings)
+	uv run mkdocs build --strict
+
+docs-clean: ## Clean built documentation
+	rm -rf site/
 
 build: clean ## Build distribution packages
 	python -m build
@@ -100,6 +127,9 @@ docker-up-qdrant: ## Start Qdrant only
 docker-up-chroma: ## Start ChromaDB only
 	./docker/docker.sh up chroma
 
+docker-up-neo4j: ## Start Neo4j only
+	docker run -d --name neo4j-dev -p 7474:7474 -p 7687:7687 -e NEO4J_AUTH=neo4j/password neo4j:latest
+
 docker-down: ## Stop all services
 	./docker/docker.sh down all
 
@@ -111,6 +141,9 @@ docker-down-qdrant: ## Stop Qdrant
 
 docker-down-chroma: ## Stop ChromaDB
 	./docker/docker.sh down chroma
+
+docker-down-neo4j: ## Stop Neo4j
+	docker stop neo4j-dev && docker rm neo4j-dev
 
 docker-restart: ## Restart all services
 	./docker/docker.sh restart all
@@ -146,6 +179,19 @@ dev-setup: dev docker-up docker-pull-models ## Complete development setup
 
 dev-teardown: docker-down ## Stop all development services
 	@echo "✅ Development services stopped"
+
+# Examples
+run-metadata-example: ## Run metadata extraction example (requires Ollama)
+	@echo "🚀 Running metadata extraction example..."
+	@echo "   Prerequisites: Ollama must be running with llama3.2 and nomic-embed-text models"
+	@echo ""
+	uv run python examples/metadata_extraction_example.py
+
+run-graph-example: ## Run graph RAG example (requires Neo4j)
+	@echo "🚀 Running Graph RAG example..."
+	@echo "   Prerequisites: Neo4j must be running (make docker-up-neo4j)"
+	@echo ""
+	uv run python examples/graph_rag_basic.py
 
 # Integration tests with Docker
 test-integration: docker-up ## Run integration tests
