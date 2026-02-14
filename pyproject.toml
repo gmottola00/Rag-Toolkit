@@ -33,13 +33,16 @@ dependencies = [
 qdrant = ["qdrant-client>=1.7.0"]
 chroma = ["chromadb>=0.4.0"]
 
+# Graph databases
+neo4j = ["neo4j>=5.0.0"]
+
 # LLM providers
 ollama = ["ollama>=0.1.0"]
 openai = ["openai>=1.0.0,<2.0.0"]
 
 # Document parsing
 pdf = ["pymupdf>=1.23.0"]
-docx = ["python-docx>=1.1.0"]
+docx = ["python-docx>=1.1.0", "ftfy>=6.1.0"]
 ocr = ["easyocr>=1.7.0"]
 
 # Language detection
@@ -69,7 +72,7 @@ docs = [
 
 # All optional dependencies
 all = [
-    "rag-toolkit[qdrant,chroma,ollama,openai,pdf,docx,ocr,lang]",
+    "rag-toolkit[qdrant,chroma,neo4j,ollama,openai,pdf,docx,ocr,lang]",
 ]
 
 [project.urls]
@@ -144,6 +147,7 @@ module = [
     "pymilvus.*",
     "qdrant_client.*",
     "chromadb.*",
+    "neo4j.*",
     "ollama.*",
     "langdetect.*",
     "fitz.*",

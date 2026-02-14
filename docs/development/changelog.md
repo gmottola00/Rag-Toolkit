@@ -5,6 +5,48 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+#### Graph RAG with Neo4j
+- **GraphStoreClient Protocol**: Protocol interface for graph database operations
+  - `create_node()`: Create nodes with labels and properties
+  - `create_relationship()`: Create relationships between nodes
+  - `query()`: Execute native graph queries (Cypher for Neo4j)
+  - `create_constraint()`: Add constraints for data integrity
+  - `create_index()`: Add indexes for query performance
+  - `get_stats()`: Retrieve graph statistics
+  - `clear()`: Clear database (development/testing)
+
+- **Neo4j Implementation**: Production-ready Neo4j 5.x client
+  - `Neo4jClient`: Low-level async Neo4j client with connection pooling
+  - `Neo4jService`: High-level service implementing GraphStoreClient protocol
+  - `Neo4jConfig`: Configuration dataclass for connection settings
+  - `create_neo4j_service()`: Factory function with environment variable support
+  - Support for local (bolt://) and cloud (neo4j+s://) connections
+  - Automatic Neo4j type conversion to JSON-serializable Python types
+
+- **Graph Types**: New dataclasses for graph operations
+  - `GraphNode`: Represents graph nodes with labels and properties
+  - `GraphRelationship`: Represents relationships between nodes
+  - `GraphMetadata`: Type alias for graph metadata
+
+- **Documentation**:
+  - Complete Graph RAG guide with examples
+  - API reference documentation
+  - Working example script (examples/graph_rag_basic.py)
+  - Integration with existing documentation
+
+- **Testing**:
+  - Unit tests with mocks (no Neo4j required)
+  - Integration tests with Docker Neo4j container
+  - Makefile targets for graph testing
+
+- **Dependencies**:
+  - Optional `neo4j` dependency group: `pip install rag-toolkit[neo4j]`
+  - Added to `all` extras group
+
 ## [0.1.0] - 2025-12-22
 
 ### 🎉 Initial Release
@@ -126,9 +168,39 @@ Not applicable - initial release.
 - **Documentation**: Comprehensive guide with production examples and roadmap
 - **Test Coverage**: 60 tests (100% pass rate)
 
+#### Metadata Extraction & Enrichment (2026-02-10)
+- **LLMMetadataExtractor**: Generic metadata extractor using LLM prompts (`rag_toolkit.core.metadata`)
+  - Customizable system and extraction prompt templates for domain-specific extraction
+  - Support for legal, medical, tender, academic, and custom domains
+  - Automatic JSON parsing with code block cleanup
+  - Graceful error handling (returns empty dict on failure)
+  - Custom response parser support for non-JSON formats
+  - Test coverage: 13 unit tests (100% coverage)
+
+- **MetadataEnricher**: Chunk text enrichment for improved retrieval (`rag_toolkit.core.chunking`)
+  - Adds metadata inline to chunk text for better vector and keyword search
+  - Customizable format templates (e.g., `[key: value]`, `(key=value)`)
+  - Configurable excluded keys (defaults: file_name, chunk_id, id, source_chunk_id)
+  - Batch enrichment support via `enrich_chunks()` method
+  - Test coverage: 19 unit tests (100% coverage)
+
+- **Batch Embedding Support**: Enhanced embedding clients with batch operations
+  - `OllamaEmbeddingClient.embed_batch()`: Sequential batch processing
+  - `OpenAIEmbeddingClient.embed_batch()`: Native batch API for efficiency
+  - Improves performance for large-scale indexing operations
+  - Backward compatible with existing code
+
+- **Examples**: Working example demonstrating full metadata extraction pipeline
+  - `examples/metadata_extraction_example.py`: Legal document extraction demo
+  - Shows complete workflow: extract → chunk → enrich → embed
+  - Mock data included for easy testing
+
 ### Changed
 - **Documentation**: Updated roadmap reflecting completed vector store integrations
 - **Infrastructure**: Enhanced Docker setup for local development and testing
+- **Package Exports**: Added `LLMMetadataExtractor` and `MetadataEnricher` to main package exports
+- **Module Docstring**: Updated feature list to include metadata extraction and enrichment
+- **EmbeddingClient Protocol**: Now includes `embed_batch()` method (documented and implemented in all clients)
 
 ### Planned Features (Next Releases)
 
